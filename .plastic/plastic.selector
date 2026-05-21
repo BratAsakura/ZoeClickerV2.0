@@ -1,0 +1,4 @@
+repository "ZoeClickerV2.0/ZoeClickerV2.0@10170755338797@cloud"
+  path "/"
+    br "/main"
+    co "/main"

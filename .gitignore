@@ -71,3 +71,8 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 .vsconfig
 .vscode/
+
+# Plastic SCM
+/Assets/plastic/
+/Plastic/
+*.plastic/

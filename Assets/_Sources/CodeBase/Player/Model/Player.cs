@@ -7,12 +7,14 @@ public class Player : MonoBehaviour
     private GameInputSystem _input;
     private PlayerInteractor _interactor;
     private PlayerAttack _attack;
+    private Camera _mainCamera;
 
     private void Awake()
     {
         _input = GetComponent<GameInputSystem>();
         _interactor = GetComponent<PlayerInteractor>();
         _attack = GetComponent<PlayerAttack>();
+        _mainCamera = Camera.main;
 
         _input.Clicked += OnClicked;
     }
@@ -39,8 +41,7 @@ public class Player : MonoBehaviour
     private bool TryGetTarget(Vector2 mousePosition, out GameObject target)
     {
         target = null;
-        Camera camera = Camera.main;
-        Vector2 worldPoint = camera.ScreenToWorldPoint(mousePosition);
+        Vector2 worldPoint = _mainCamera.ScreenToWorldPoint(mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
 
         if (hit.collider == null)

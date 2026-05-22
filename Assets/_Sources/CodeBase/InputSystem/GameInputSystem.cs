@@ -6,7 +6,7 @@ public class GameInputSystem : MonoBehaviour, IInputSystem
 {
     private GameInput _gameInput;
 
-    public event Action Clicked;
+    public event Action<Vector2> Clicked;
 
     private void Awake()
     {
@@ -16,7 +16,8 @@ public class GameInputSystem : MonoBehaviour, IInputSystem
 
     private void OnClicked(InputAction.CallbackContext context)
     {
-        Clicked?.Invoke();
+        Vector2 mouseScreenPosition = Mouse.current.position.ReadValue();
+        Clicked?.Invoke(mouseScreenPosition);
     }
 
     private void OnEnable()

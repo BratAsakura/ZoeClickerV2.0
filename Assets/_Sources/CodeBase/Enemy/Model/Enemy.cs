@@ -23,6 +23,16 @@ public class Enemy : MonoBehaviour, IDamageable
         LevelUpdate?.Invoke(_level);
     }
 
+    private void OnEnable()
+    {
+        GlobalContext.ZoneSystem.ZoneLevelChanged += SetLevel;
+    }
+
+    private void SetLevel(int level)
+    {
+        _level = level;
+    }
+
     private void OnValidate()
     {
         // Тестовая штука

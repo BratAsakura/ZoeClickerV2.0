@@ -12,12 +12,14 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public event Action<float> HealthChanged;
     public event Action<int> LevelUpdate;
+    public event Action UnitDied;
 
     public int Level => _level;
     public float Health => _health;
 
     private void Awake()
     {
+        GlobalContext.Enemy = this;
         LevelUpdate?.Invoke(_level);
     }
 
@@ -28,9 +30,23 @@ public class Enemy : MonoBehaviour, IDamageable
         LevelUpdate?.Invoke(_level);
     }
 
+    private void OnDestroy()
+    {
+        GlobalContext.Enemy = null;
+    }
+
     public void TakeDamage(float damage)
     {
         _health = Mathf.Max(0, _health - damage);
         HealthChanged?.Invoke(_health);
+
+        if (_health == 0)
+            Die();
     }
+
+    private void Die()
+    {
+        UnitDied?.Invoke();
+    }
+
 }

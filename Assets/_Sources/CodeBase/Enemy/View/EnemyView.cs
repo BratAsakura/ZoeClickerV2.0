@@ -6,25 +6,25 @@ public class EnemyView : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _levelUI;
     [SerializeField] private TextMeshProUGUI _healthUI;
 
-    private Enemy enemy;
+    private Enemy _enemy;
 
     private void Awake()
     {
-        enemy = GetComponent<Enemy>();
-        _healthUI.SetText($"Health: {enemy.Health}");
-        _levelUI.SetText($"Level: {enemy.Level}");
+        _enemy = GetComponent<Enemy>();
+        _healthUI.SetText($"Health: {_enemy.Health}");
+        _levelUI.SetText($"Level: {_enemy.Level}");
     }
 
     private void OnEnable()
     {
-        enemy.HealthChanged += OnHealthView;
-        enemy.LevelUpdate += OnLevelView;
+        _enemy.HealthChanged += OnHealthView;
+        _enemy.LevelUpdate += OnLevelView;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
-        enemy.HealthChanged -= OnHealthView;
-        enemy.LevelUpdate -= OnLevelView;
+        _enemy.HealthChanged -= OnHealthView;
+        _enemy.LevelUpdate -= OnLevelView;
     }
 
     private void OnLevelView(int value)

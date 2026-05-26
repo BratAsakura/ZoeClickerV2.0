@@ -23,8 +23,8 @@ public class EnemyView : MonoBehaviour
 
     private void OnDestroy()
     {
-        enemy.HealthChanged += OnHealthView;
-        enemy.LevelUpdate += OnLevelView;
+        enemy.HealthChanged -= OnHealthView;
+        enemy.LevelUpdate -= OnLevelView;
     }
 
     private void OnLevelView(int value)

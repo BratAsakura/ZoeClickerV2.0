@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyView))]
 public class Enemy : MonoBehaviour, IDamageable
 {
-    private const float DeafaultHealth = 10;
+    private const float DefaultHealth = 10;
 
     [SerializeField] private int _level;
     [SerializeField] private float _health;
@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour, IDamageable
         _health = Mathf.Max(0, _health - damage);
         HealthChanged?.Invoke(_health);
 
-        if (_health == 0)
+        if (_health <= 0)
             Die();
     }
 

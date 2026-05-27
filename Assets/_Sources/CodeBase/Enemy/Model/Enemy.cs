@@ -3,6 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(CircleCollider2D))]
 [RequireComponent(typeof(EnemyView))]
+[DefaultExecutionOrder(-10)]
 public class Enemy : MonoBehaviour, IDamageable
 {
     private const float DefaultHealth = 10;
@@ -31,6 +32,7 @@ public class Enemy : MonoBehaviour, IDamageable
     private void SetLevel(int level)
     {
         _level = level;
+        LevelUpdate?.Invoke(_level);
     }
 
     private void OnValidate()
@@ -57,6 +59,8 @@ public class Enemy : MonoBehaviour, IDamageable
     private void Die()
     {
         UnitDied?.Invoke();
+        _health = DefaultHealth * _level;
+        HealthChanged?.Invoke(_health);
     }
 
 }

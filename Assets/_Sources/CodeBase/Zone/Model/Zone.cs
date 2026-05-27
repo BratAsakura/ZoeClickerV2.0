@@ -1,11 +1,10 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(ZoneView))]
+//[RequireComponent(typeof(ZoneView))]
 public class Zone : MonoBehaviour
 {
-    private const int MaxKill = 10;
+    public const int MaxKill = 10;
 
     [SerializeField] private int _level;
     [SerializeField] private int _countKills;
@@ -20,10 +19,11 @@ public class Zone : MonoBehaviour
         GlobalContext.ZoneSystem.ZoneProgressRestored += SetLevel;
     }
 
-    private void SetLevel(int level, int countKills)
+    private void SetLevel(int level, int countKills, bool isComplete)
     {
         _level = level;
         _countKills = countKills;
+        _isComplete = isComplete;
     }
 
     private void OnDisable()
@@ -42,7 +42,7 @@ public class Zone : MonoBehaviour
         if (_countKills != MaxKill)
             return;
 
-        KillGoalReached?.Invoke(_countKills);
         _isComplete = true;
+        KillGoalReached?.Invoke(_countKills);
     }
 }

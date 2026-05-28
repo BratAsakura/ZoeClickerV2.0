@@ -22,6 +22,6 @@ public class WalleyView : MonoBehaviour
 
     private void OnBalanceChanged(double amount)
     {
-        _balanceView.SetText("Money: " + WalletSystem.FormatBalance(amount));
+        _balanceView.SetText("Money: " + NumberFormatter.Format(amount));
     }
 }

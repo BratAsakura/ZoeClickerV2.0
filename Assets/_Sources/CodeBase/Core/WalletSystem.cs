@@ -40,29 +40,6 @@ public class WalletSystem : MonoBehaviour
         GlobalContext.ZoneSystem.ZoneLevelChanged -= OnZoneLevelChanged;
     }
 
-    public static string FormatBalance(double money)
-    {
-        const int Threshold = 1000;
-        int index = 0;
-
-        string[] suffixes =
-            {
-                "", "K", "M", "B", "T", "q", "Q", "s", "S",
-                "Sp", "Oc", "No", "Dc", "Un", "Du", "Tr", "Qt", "Qi", "Se",
-                "SpT", "OcT", "NoT", "DcT", "UnT", "DuT", "TrT"
-            };
-
-        while (money >= Threshold && index < suffixes.Length - 1)
-        {
-            money /= Threshold;
-            index++;
-        }
-
-        string formatted = money % 1 == 0 ? money.ToString("F0") : money.ToString("F1");
-
-        return formatted + suffixes[index];
-    }
-
     public void AddMoney(double amount)
     {
         if (amount < 0)

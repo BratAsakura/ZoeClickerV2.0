@@ -14,12 +14,6 @@ public class GameInputSystem : MonoBehaviour, IInputSystem
         _gameInput.Player.Click.performed += OnClicked;
     }
 
-    private void OnClicked(InputAction.CallbackContext context)
-    {
-        Vector2 mouseScreenPosition = Mouse.current.position.ReadValue();
-        Clicked?.Invoke(mouseScreenPosition);
-    }
-
     private void OnEnable()
     {
         _gameInput.Enable();
@@ -34,5 +28,11 @@ public class GameInputSystem : MonoBehaviour, IInputSystem
     {
         if (_gameInput != null)
             _gameInput.Player.Click.performed -= OnClicked;
+    }
+
+    private void OnClicked(InputAction.CallbackContext context)
+    {
+        Vector2 mouseScreenPosition = Mouse.current.position.ReadValue();
+        Clicked?.Invoke(mouseScreenPosition);
     }
 }

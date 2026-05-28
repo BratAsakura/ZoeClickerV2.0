@@ -34,6 +34,6 @@ public class EnemyView : MonoBehaviour
 
     private void OnHealthView(float value)
     {
-        _healthUI.SetText($"Health: {value}");
+        _healthUI.SetText("Health: " + NumberFormatter.Format(value));
     }
 }

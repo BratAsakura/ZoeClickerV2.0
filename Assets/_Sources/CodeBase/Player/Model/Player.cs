@@ -2,9 +2,10 @@ using UnityEngine;
 [RequireComponent(typeof(GameInputSystem))]
 [RequireComponent(typeof(PlayerInteractor))]
 [RequireComponent(typeof(PlayerAttack))]
+[RequireComponent(typeof(PlayerPassiveAttack))]
 public class Player : MonoBehaviour
 {
-    private GameInputSystem _input;
+    private IInputSystem _input;
     private PlayerInteractor _interactor;
     private PlayerAttack _attack;
     private Camera _mainCamera;
@@ -26,12 +27,9 @@ public class Player : MonoBehaviour
 
     private void OnClicked(Vector2 position)
     {
-        Debug.Log("Кликаю");
         if (TryGetTarget(position, out GameObject target))
         {
-            if (target == null)
-                return;
-            else if (target.TryGetComponent<IDamageable>(out var damageable))
+            if (target.TryGetComponent<IDamageable>(out var damageable))
                 _attack.Attack(damageable);
             else if (target.TryGetComponent<IInteractable>(out var interactable))
                 _interactor.Interact(interactable);

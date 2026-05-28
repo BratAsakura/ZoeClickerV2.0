@@ -29,6 +29,11 @@ public class Enemy : MonoBehaviour, IDamageable
         GlobalContext.ZoneSystem.ZoneLevelChanged += SetLevel;
     }
 
+    private void OnDisable()
+    {
+        GlobalContext.ZoneSystem.ZoneLevelChanged -= SetLevel;
+    }
+
     private void SetLevel(int level)
     {
         _level = level;

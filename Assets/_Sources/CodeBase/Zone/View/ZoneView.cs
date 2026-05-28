@@ -16,6 +16,11 @@ public class ZoneView : MonoBehaviour
         GlobalContext.ZoneSystem.ZoneLevelChanged += SetLevel;
     }
 
+    private void OnDisable()
+    {
+        GlobalContext.ZoneSystem.ZoneLevelChanged -= SetLevel;
+    }
+
     private void SetLevel(int value)
     {
         _levelView.SetText($"Level: {value}");

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [DefaultExecutionOrder(-1)]
-public class WalletSystem : MonoBehaviour
+public class WalletSystem : MonoBehaviour, ISaveable
 {
     private readonly byte _baseReward = 1;
 
@@ -57,6 +57,17 @@ public class WalletSystem : MonoBehaviour
         }
 
         _balance -= amount;
+        BalanceChanged?.Invoke(_balance);
+    }
+
+    public void Save(GameData data)
+    {
+        data.balance = _balance;
+    }
+
+    public void Load(GameData data)
+    {
+        _balance = data.balance;
         BalanceChanged?.Invoke(_balance);
     }
 

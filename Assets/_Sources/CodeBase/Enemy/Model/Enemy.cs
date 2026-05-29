@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(CircleCollider2D))]
 [RequireComponent(typeof(EnemyView))]
 [DefaultExecutionOrder(-10)]
-public class Enemy : MonoBehaviour, IDamageable
+public class Enemy : MonoBehaviour, IDamageable, ISaveable
 {
     private const float DefaultHealth = 10;
 
@@ -61,11 +61,20 @@ public class Enemy : MonoBehaviour, IDamageable
             Die();
     }
 
+    public void Save(GameData data)
+    {
+        data.enemyLevel = _level;
+    }
+
+    public void Load(GameData data)
+    {
+        _level = data.enemyLevel;
+    }
+
     private void Die()
     {
         UnitDied?.Invoke();
         _health = DefaultHealth * _level;
         HealthChanged?.Invoke(_health);
     }
-
 }

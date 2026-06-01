@@ -35,7 +35,7 @@ public class ZoneSystem : MonoBehaviour, ISaveable
         data.zoneProgress = _progressInZone;
     }
 
-    public void Load(GameData data)
+    public void LoadData(GameData data)
     {
         if (data == null)
         {

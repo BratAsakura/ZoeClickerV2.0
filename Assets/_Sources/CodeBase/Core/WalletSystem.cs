@@ -65,7 +65,7 @@ public class WalletSystem : MonoBehaviour, ISaveable
         data.balance = _balance;
     }
 
-    public void Load(GameData data)
+    public void LoadData(GameData data)
     {
         _balance = data.balance;
         BalanceChanged?.Invoke(_balance);

@@ -66,9 +66,11 @@ public class Enemy : MonoBehaviour, IDamageable, ISaveable
         data.enemyLevel = _level;
     }
 
-    public void Load(GameData data)
+    public void LoadData(GameData data)
     {
         _level = data.enemyLevel;
+        HealthChanged?.Invoke(_health);
+        LevelUpdate?.Invoke(_level);
     }
 
     private void Die()

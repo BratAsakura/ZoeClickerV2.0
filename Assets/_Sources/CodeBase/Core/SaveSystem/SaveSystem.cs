@@ -31,22 +31,6 @@ public class SaveSystem : MonoBehaviour
         GlobalContext.UpgradeSystem.UpgradeProgressed -= OnUpgradeProgressed;
     }
 
-    public void Save(GameData data)
-    {
-        string json = JsonConvert.SerializeObject(data);
-        File.WriteAllText(_saveFolder, json);
-    }
-
-    public GameData Load()
-    {
-        if (!HasSave())
-            return null;
-
-        string json = File.ReadAllText(_saveFolder);
-        GameData data = JsonConvert.DeserializeObject<GameData>(json);
-        return data;
-    }
-
     public bool HasSave()
     {
         return File.Exists(_saveFolder);
@@ -77,9 +61,25 @@ public class SaveSystem : MonoBehaviour
         {
             if (item.TryGetComponent<ISaveable>(out ISaveable saveable))
             {
-                saveable.Load(data);
+                saveable.LoadData(data);
             }
         }
+    }
+
+    private void Save(GameData data)
+    {
+        string json = JsonConvert.SerializeObject(data);
+        File.WriteAllText(_saveFolder, json);
+    }
+
+    private GameData Load()
+    {
+        if (!HasSave())
+            return null;
+
+        string json = File.ReadAllText(_saveFolder);
+        GameData data = JsonConvert.DeserializeObject<GameData>(json);
+        return data;
     }
 
     private void OnUpgradeProgressed(UpgradeDataSO upgrade, int level)

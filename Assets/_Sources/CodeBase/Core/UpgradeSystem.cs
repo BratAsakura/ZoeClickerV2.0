@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -49,13 +48,13 @@ public class UpgradeSystem : MonoBehaviour, ISaveable
         data.upgradeLevels = levels;
     }
 
-    public void Load(GameData data)
+    public void LoadData(GameData data)
     {
+        if (data.upgradeLevels == null)
+            return;
+
         foreach (UpgradeDataSO upgrade in _upgrades)
         {
-            if (data.upgradeLevels == null)
-                return;
-
             if (data.upgradeLevels.TryGetValue(upgrade.Name, out int level))
             {
                 _currentLevel[upgrade] = level;

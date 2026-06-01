@@ -13,7 +13,7 @@ public class PlayerPassiveAttack : MonoBehaviour
 
     private void Update()
     {
-        if (_dps == 0)
+        if (_dps <= 0)
             return;
 
         _timer += Time.deltaTime;

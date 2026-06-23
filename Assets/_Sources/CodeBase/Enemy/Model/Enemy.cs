@@ -37,6 +37,8 @@ public class Enemy : MonoBehaviour, IDamageable, ISaveable
     private void SetLevel(int level)
     {
         _level = level;
+        _health = DefaultHealth * _level;
+        HealthChanged?.Invoke(_health);
         LevelUpdate?.Invoke(_level);
     }
 

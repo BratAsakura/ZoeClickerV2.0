@@ -11,7 +11,10 @@ public class ZoneSystem : MonoBehaviour, ISaveable
     private Dictionary<int, int> _progressInZone = new();
 
     public event Action<int> ZoneLevelChanged;
+    public event Action<int> ZoneUnlocked;
     public event Action<int, int, bool> ZoneProgressRestored;
+
+    public int MaxUnlockedLevel => _maxUnlockedLevel;
 
     private void Awake()
     {
@@ -27,6 +30,8 @@ public class ZoneSystem : MonoBehaviour, ISaveable
     {
         _activeZone.KillGoalReached -= OnKillGoalReached;
     }
+
+    public void SelectLevel(int level) => SetLevel(level);
 
     public void Save(GameData data)
     {
@@ -70,6 +75,7 @@ public class ZoneSystem : MonoBehaviour, ISaveable
     {
         _maxUnlockedLevel++;
         _progressInZone.Add(_maxUnlockedLevel, 0);
+        ZoneUnlocked?.Invoke(_maxUnlockedLevel);
         SetLevel(_maxUnlockedLevel);
     }
 

@@ -4,6 +4,8 @@ public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private float _damage;
 
+    public float Damage => _damage;
+
     private void OnEnable()
     {
         GlobalContext.UpgradeSystem.UpgradePurchased += OnUpgradePurchased;

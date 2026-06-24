@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerPassiveAttack))]
 public class Player : MonoBehaviour
 {
+    [SerializeField] private DamagePopup _prefab;
+    [SerializeField] private Transform _uiRoot;
+
     private IInputSystem _input;
     private PlayerInteractor _interactor;
     private PlayerAttack _attack;
@@ -30,7 +33,11 @@ public class Player : MonoBehaviour
         if (TryGetTarget(position, out GameObject target))
         {
             if (target.TryGetComponent<IDamageable>(out var damageable))
+            {
                 _attack.Attack(damageable);
+                DamagePopup popup = Instantiate(_prefab, _uiRoot);
+                popup.StartCoroutine(popup.Show(_attack.Damage));
+            }
             else if (target.TryGetComponent<IInteractable>(out var interactable))
                 _interactor.Interact(interactable);
         }

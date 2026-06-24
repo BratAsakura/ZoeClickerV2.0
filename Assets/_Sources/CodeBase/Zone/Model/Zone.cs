@@ -10,8 +10,10 @@ public class Zone : MonoBehaviour
     [SerializeField] private int _countKills;
 
     private bool _isComplete = false;
+    public int CountKills => _countKills;
 
     public event Action<int> KillGoalReached;
+    public event Action<int> KillCount;
 
     private void OnEnable()
     {
@@ -38,6 +40,7 @@ public class Zone : MonoBehaviour
             return;
 
         _countKills++;
+        KillCount?.Invoke(_countKills);
 
         if (_countKills != MaxKill)
             return;

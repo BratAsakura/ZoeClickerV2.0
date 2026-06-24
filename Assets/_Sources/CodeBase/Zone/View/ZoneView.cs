@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -5,24 +6,36 @@ public class ZoneView : MonoBehaviour
 {
     //Ёто должно быть UI HUD
     [SerializeField] private TextMeshProUGUI _levelView; // Ёто надо заменить на sprite
-
-    private void Awake()
-    {
-        _levelView.SetText($"Level: {-999}");// ѕока дл€ теста.
-    }
+    [SerializeField] private TextMeshProUGUI _progressKill;
+    [SerializeField] private Zone _zone;
 
     private void OnEnable()
     {
         GlobalContext.ZoneSystem.ZoneLevelChanged += SetLevel;
+        GlobalContext.ZoneSystem.ZoneProgressRestored += OnProgressRestored;
+        _zone.KillCount += OnKills;
+    }
+
+    private void OnKills(int value)
+    {
+        _progressKill.SetText($"Kill: {value}/10");
     }
 
     private void OnDisable()
     {
         GlobalContext.ZoneSystem.ZoneLevelChanged -= SetLevel;
+        GlobalContext.ZoneSystem.ZoneProgressRestored -= OnProgressRestored;
+        _zone.KillCount -= OnKills;
+
     }
 
     private void SetLevel(int value)
     {
         _levelView.SetText($"Level: {value}");
+    }
+
+    private void OnProgressRestored(int level, int countKills, bool isComplete)
+    {
+        _progressKill.SetText($"Kill: {countKills}/10");
     }
 }
